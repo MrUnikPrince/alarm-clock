@@ -28,6 +28,20 @@ function dropDownMenu(start, end, element){
     }
 }
 
+// get current time 
+
+function getCurrentTime() {
+    let time = new Date();
+    time = time.toLocaleTimeString('en-US',{
+        hour : 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true,
+    })
+    currentTime.innerHTML = time;
+    return time;
+}
+
 
 
 
