@@ -117,7 +117,25 @@ function fetchAlarm() {
     });
 }
 
+// Delete alarm 
+function deleteAlarm(event, time, intervalId) {
+    const self = event.target;
+    clearInterval(intervalId);
+    
+    const alarm = self.parentElement;
+    console.log(time);
 
+    deleteAlarmFromLocal(time);
+    alarm.remove();
+}
+
+// delete alarm from local storare
+function deleteAlarmFromLocal(time){
+    const alarms = checkAlarams();
+    const index = alarms.indexOf(time);
+    alarms.splice(index, 1);
+    localStorage.setItem('alarms', JSON.stringify(alarms));
+}
 
 
 
