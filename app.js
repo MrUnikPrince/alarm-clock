@@ -77,7 +77,45 @@ function setAlarm(time, fetching = false){
     }
 }
 
+// Alarms set by user Displayed in HTML
+function addAlaramToDom(time, intervalId) {
+    const alarm = document.createElement("div");
+    alarm.classList.add("alarm", "mb", "d-flex");
+    alarm.innerHTML = `
+                <div class="time">${time}</div>
+                <button class="btn delete-alarm" data-id=${intervalId}>Delete</button>
+                `;
+    const deleteButton = alarm.querySelector(".delete-alarm");
+    deleteButton.addEventListener("click", (e) => deleteAlarm(e, time, intervalId));
+  
+    alarmContainer.prepend(alarm);
+  }
 
+
+// check alarms in Local Storage 
+
+function checkAlarams() {
+    let alarms = [];
+    const isPresent = localStorage.getItem('alarms');
+    if(isPresent) alarm = JSON.parse(isPresent);
+    return alarms;
+}
+
+// Save Alarm To Local Storage
+function saveAlarm(time) {
+    const alarms = checkAlarams();
+    alarms.push(time);
+    localStorage.setItem('alarms', JSON.stringify(alarms));
+}
+
+// Fetch Alarms From Local Storage
+function fetchAlarm() {
+    const alarms = checkAlarams();
+    
+    alarms.forEach((time) => {
+        setAlarm(time, true);
+    });
+}
 
 
 
