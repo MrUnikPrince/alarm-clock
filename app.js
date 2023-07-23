@@ -42,7 +42,40 @@ function getCurrentTime() {
     return time;
 }
 
+// get input
+function getInput(e) { //e = event
+    e.preventDefault();
+    const hourValue = setHours.value;
+    const minuteValue = setMinutes.value;
+    const secondValue = setSeconds.value;
+    const amPmValue = setAmPm.value;
 
+    const alarmTime = convertToTime(
+        hourValue,
+        minuteValue,
+        secondValue,
+        amPmValue
+    );
+    setAlarm(alarmTime);
+}
+
+// converting time to 24 hour format
+function convertToTime(hour, minute, second, amPm){
+    return `${parseInt(hour)} : ${minute} : ${second} ${amPm}`;
+}
+
+function setAlarm(time, fetching = false){
+    const alarm = setInterval(() => {
+        if(time === getCurrentTime()){
+            alert('Alarm Ringing');
+        }
+        console.log('Running');
+    },500);
+    addAlaramToDom(time, alarm);
+    if(!fetching){
+        saveAlarm(time);
+    }
+}
 
 
 
